@@ -14,7 +14,7 @@ list_of_files = [
     "src/pipeline/__init__.py",
     "src/pipeline/predict_pipeline.py",
     "src/config/__init__.py",
-    "src/config/configuration.py",
+    "src/config/configuration_manager.py",
     "src/utils/__init__.py",
     "src/entity/__init__.py",
     "src/constants/__init__.py",
