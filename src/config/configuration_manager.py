@@ -2,7 +2,11 @@ from src.constants import *
 from src.utils.common import CommonUtils
 from box import ConfigBox
 from src.custom_exception import CustomException
-from src.entity import DataIngestionEntity, DataValidationEntity
+from src.entity import (
+    DataIngestionEntity,
+    DataValidationEntity,
+    DataTransformationEntity,
+)
 import sys
 
 
@@ -36,6 +40,18 @@ class ConfigurationManager:
                 root_dir=config.root_dir,
                 status_file=config.status_file,
                 required_folders=config.required_folders,
+            )
+        except Exception as exp:
+            raise CustomException(exp, sys)
+
+    def data_transformation_configuration(self) -> DataTransformationEntity:
+        try:
+            config = self.config.data_transformation
+            CommonUtils.create_directories([config.root_dir])
+            return DataTransformationEntity(
+                root_dir=config.root_dir,
+                data_path=config.data_path,
+                tokenizer_name=config.tokenizer_name,
             )
         except Exception as exp:
             raise CustomException(exp, sys)

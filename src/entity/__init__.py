@@ -15,3 +15,10 @@ class DataValidationEntity:
     root_dir: Path
     status_file: Path
     required_folders: list
+
+
+@dataclass
+class DataTransformationEntity:
+    root_dir: Path
+    data_path: Path
+    tokenizer_name: str
