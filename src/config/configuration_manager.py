@@ -2,7 +2,7 @@ from src.constants import *
 from src.utils.common import CommonUtils
 from box import ConfigBox
 from src.custom_exception import CustomException
-from src.entity import DataIngestionEntity
+from src.entity import DataIngestionEntity, DataValidationEntity
 import sys
 
 
@@ -13,7 +13,7 @@ class ConfigurationManager:
 
         CommonUtils.create_directories([self.config.artifacts_root])
 
-    def DataIngestionConfiguration(self) -> DataIngestionEntity:
+    def data_ingestion_configuration(self) -> DataIngestionEntity:
         try:
             data_ingestion_config = self.config.data_ingestion
 
@@ -24,6 +24,18 @@ class ConfigurationManager:
                 source_url=data_ingestion_config.source_url,
                 local_raw_folder=data_ingestion_config.local_raw_folder,
                 unzip_folder=data_ingestion_config.unzip_folder,
+            )
+        except Exception as exp:
+            raise CustomException(exp, sys)
+
+    def data_validation_configuration(self) -> DataValidationEntity:
+        try:
+            config = self.config.data_validation
+            CommonUtils.create_directories([config.root_dir])
+            return DataValidationEntity(
+                root_dir=config.root_dir,
+                status_file=config.status_file,
+                required_folders=config.required_folders,
             )
         except Exception as exp:
             raise CustomException(exp, sys)

@@ -13,7 +13,7 @@ class DataIngestionPipeline:
         try:
             config_manager_obj = ConfigurationManager()
             data_ingestion_config: DataIngestionEntity = (
-                config_manager_obj.DataIngestionConfiguration()
+                config_manager_obj.data_ingestion_configuration()
             )
             data_ingestion_obj = DataIngestion(data_ingestion_config)
             is_file_download = data_ingestion_obj.download_source_file()
